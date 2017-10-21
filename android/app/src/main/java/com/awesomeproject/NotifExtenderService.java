@@ -1,6 +1,5 @@
 package com.awesomeproject;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.facebook.react.bridge.WritableNativeMap;
@@ -27,6 +26,8 @@ public class NotifExtenderService extends NotificationExtenderService {
         WritableNativeMap params = new WritableNativeMap();
         params.putString("title", receivedResult.payload.title);
         params.putString("body", receivedResult.payload.body);
+
+        InCallModule.sendEvent("incomingCall", params);
 
         // Return true to stop the notification from displaying.
         return true;

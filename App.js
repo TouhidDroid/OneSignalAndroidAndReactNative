@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   Button,
-  View
+  View,
+  DeviceEventEmitter 
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -23,8 +24,22 @@ const instructions = Platform.select({
 export default class App extends Component<{}> {
    
    showInCallView(){
-   
+		console.log("registering ...");
+		this.addListenerOn(DeviceEventEmitter,
+                       'incomingCall',
+                       this.modCaller.showIncomingCall);
    }
+   /*componentWillMount: function() {
+		DeviceEventEmitter.addListener('keyboardWillShow', function(e: Event) {
+			console.log("Event : " + e);
+	});*/
+}
+   var modCaller = {
+	   showIncomingCall: function(e: Event) {
+			// InCallModule.showLog("Incoming call");
+			console.log("Event : " + e);
+	  }
+	};
 
   render() {
     return (
@@ -34,9 +49,6 @@ export default class App extends Component<{}> {
         </Text>
         <Text style={styles.instructions}>
           To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
         </Text>
         <Text style={styles.instructions}>
           {instructions}
